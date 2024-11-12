@@ -1,5 +1,6 @@
 const knex = require('./dbConnection.js');
 const transporter = require('./nodemailer.js');
+const moment = require('moment');
 
 const date = new Date().toLocaleString('en-US', {
   timeZone: 'Asia/Jakarta',
@@ -7,12 +8,13 @@ const date = new Date().toLocaleString('en-US', {
 
 exports.storeDownload = async (body) => {
   try {
-    const result = await knex('#ip-download-log').insert(body);
-
+    const {type, ...bodyRes} = body
+    const result = await knex('#ip-download-log').insert(bodyRes);
+    const date_time = moment();
     transporter.sendMail({
         from: 'webadmin@imaniprima.com',
         to: process.env.NODE_ENV === 'production' ? 'sidna.zen@imaniprima.com' : 'sidna.zen@imaniprima.com',
-        subject: 'Download Log Web Imani Prima',
+        subject: 'Download Log Web Imani Prima - '+ date_time.format('DD-MM-YYYY HH:mm'),
         text: `
           Name: ${body.name}
           Email: ${body.email}
@@ -21,10 +23,10 @@ exports.storeDownload = async (body) => {
           Company: ${body.company}
           City: ${body.city}
           Company Field: ${body.company_field}
-          Agreement: ${body.agreement}
+          Downloaded File Type: ${type}
           Selected Product: ${body.selected_product}
 
-          Date: ${date}
+          Date: ${date_time.format('DD-MM-YYYY HH:mm:ss')}
         `,
       });
 
