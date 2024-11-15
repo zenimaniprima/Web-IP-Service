@@ -9,12 +9,12 @@ const date = new Date().toLocaleString('en-US', {
 exports.storeDownload = async (body) => {
   try {
     const {type, ...bodyRes} = body
-    const result = await knex('#ip-download-log').insert(bodyRes);
+    const result = await knex('download-log').insert(bodyRes);
     const date_time = moment();
     transporter.sendMail({
         from: 'webadmin@imaniprima.com',
-        to: process.env.NODE_ENV === 'production' ? 'sidna.zen@imaniprima.com' : 'sidna.zen@imaniprima.com',
-        subject: 'Download Log Web Imani Prima - '+ date_time.format('DD-MM-YYYY HH:mm'),
+        to: process.env.NODE_ENV === 'production' ? 'sales_support@imaniprima.co.id' : 'sidna.zen@imaniprima.com',
+        subject: 'Download Log WebIP - '+ date_time.format('DD-MM-YYYY'),
         text: `
           Name: ${body.name}
           Email: ${body.email}
@@ -39,7 +39,7 @@ exports.storeDownload = async (body) => {
 
 exports.storeSales = async (body) => {
   try {
-    const result = await knex('#ip-contact-sales').insert(body);
+    const result = await knex('contact-sales').insert(body);
 
     transporter.sendMail({
       from: 'webadmin@imaniprima.com',
@@ -67,7 +67,7 @@ exports.storeSales = async (body) => {
 
 exports.storeCareer = async (body) => {
   try {
-    const result = await knex('#ip-contact-career').insert(body);
+    const result = await knex('contact-career').insert(body);
     transporter.sendMail({
       from: 'webadmin@imaniprima.com',
       to:
