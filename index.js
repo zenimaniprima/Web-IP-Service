@@ -20,4 +20,4 @@ app.use('/api', router);
 app.use('/api', routerIndex);
 
 
-app.listen(port, host, () => console.log(`app is running in ${host}:${port}`));
+app.listen(port, host, () => console.log(`app is running in ${host}:${port} ${process.env.NODE_ENV}`));
