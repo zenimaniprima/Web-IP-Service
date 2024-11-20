@@ -45,7 +45,7 @@ exports.storeSales = async (body) => {
       from: 'webadmin@imaniprima.com',
       to:
         process.env.NODE_ENV === 'production'
-          ? 'sidna.zen@imaniprima.com'
+          ? 'sales_support@imaniprima.co.id'
           : 'sidna.zen@imaniprima.com',
       subject: body.subject,
       text: `
@@ -72,7 +72,7 @@ exports.storeCareer = async (body) => {
       from: 'webadmin@imaniprima.com',
       to:
         process.env.NODE_ENV === 'production'
-          ? 'sidna.zen@imaniprima.com'
+          ? 'hr@imaniprima.com'
           : 'sidna.zen@imaniprima.com',
       subject: `Career Imani Prima - ${body.position} - ${body.name}`,
       text: `
